@@ -36,9 +36,9 @@ import im.vector.app.core.ui.views.ShieldImageView
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.themes.ThemeUtils
 import org.matrix.android.sdk.api.crypto.RoomEncryptionTrustLevel
-import org.matrix.android.sdk.api.session.room.model.presence.UserPresence
+import org.matrix.android.sdk.internal.session.presence.model.UserPresence
 import org.matrix.android.sdk.api.util.MatrixItem
-import org.matrix.android.sdk.internal.session.presence.messages.PresenceEnum
+import org.matrix.android.sdk.internal.session.presence.model.PresenceEnum
 
 @EpoxyModelClass(layout = R.layout.item_room)
 abstract class RoomSummaryItem : VectorEpoxyModel<RoomSummaryItem.Holder>() {
@@ -55,7 +55,7 @@ abstract class RoomSummaryItem : VectorEpoxyModel<RoomSummaryItem.Holder>() {
     @EpoxyAttribute lateinit var lastEventTime: CharSequence
     @EpoxyAttribute var encryptionTrustLevel: RoomEncryptionTrustLevel? = null
     @EpoxyAttribute var userPresence: UserPresence? = null
-    @EpoxyAttribute var izDirect: Boolean = false
+    @EpoxyAttribute var showPresence: Boolean = false
     @EpoxyAttribute var izPublic: Boolean = false
     @EpoxyAttribute var unreadNotificationCount: Int = 0
     @EpoxyAttribute var hasUnreadMessage: Boolean = false
@@ -98,7 +98,7 @@ abstract class RoomSummaryItem : VectorEpoxyModel<RoomSummaryItem.Holder>() {
 
     private fun handlePresence(holder: Holder) =
             holder.roomAvatarPresenceImageView.apply {
-                if (izDirect) {
+                if (showPresence) {
                     isVisible = true
                     if (userPresence?.presence == PresenceEnum.ONLINE) {
                         setImageResource(R.drawable.ic_presence_online)

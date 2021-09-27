@@ -30,6 +30,7 @@ import org.matrix.android.sdk.internal.di.MoshiProvider
 import org.json.JSONObject
 import org.matrix.android.sdk.api.extensions.tryOrNull
 import org.matrix.android.sdk.api.failure.MatrixError
+import org.matrix.android.sdk.internal.session.presence.model.PresenceContent
 import timber.log.Timber
 
 typealias Content = JsonDict
@@ -304,4 +305,8 @@ fun Event.isReply(): Boolean {
 
 fun Event.isEdition(): Boolean {
     return getRelationContent()?.takeIf { it.type == RelationType.REPLACE }?.eventId != null
+}
+
+fun Event.getPresenceContent(): PresenceContent? {
+    return content.toModel<PresenceContent>()
 }

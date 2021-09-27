@@ -43,12 +43,11 @@ internal abstract class PresenceModule {
     }
 
     @Binds
-    abstract fun bindSetPresenceTask(task: DefaultSetPresenceTask): SetPresenceTask
-
-    @Binds
     abstract fun bindPresenceService(service: DefaultPresenceService): PresenceService
 
     @Binds
-    abstract fun bindGetPresenceTask(task: DefaultGetPresenceTask): GetPresenceTask
+    abstract fun bindSetPresenceTask(task: DefaultSetPresenceTask): SetPresenceTask
 
+    @Binds
+    abstract fun bindGetPresenceTask(task: DefaultGetPresenceTask): GetPresenceTask
 }

@@ -1,11 +1,11 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright (c) 2021 New Vector Ltd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.matrix.android.sdk.internal.session.presence.model
 
-package org.matrix.android.sdk.internal.database.query.presence
-
-import io.realm.Realm
-import org.matrix.android.sdk.internal.database.model.presence.UserPresenceEntity
-
-internal fun UserPresenceEntity.Companion.insertOrUpdate(realm: Realm, userPresenceEntity: UserPresenceEntity) : UserPresenceEntity? {
-    return realm.copyToRealmOrUpdate(userPresenceEntity)
-}
+data class UserPresence(
+        val lastActiveAgo: Long? = null,
+        val statusMessage: String? = null,
+        val isCurrentlyActive: Boolean? = null,
+        val presence: PresenceEnum = PresenceEnum.OFFLINE
+)

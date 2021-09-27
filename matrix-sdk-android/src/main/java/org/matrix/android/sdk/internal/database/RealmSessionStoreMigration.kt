@@ -71,7 +71,6 @@ internal object RealmSessionStoreMigration : RealmMigration {
         if (oldVersion <= 15) migrateTo16(realm)
         if (oldVersion <= 16) migrateTo17(realm)
         if (oldVersion <= 17) migrateTo18(realm)
-
     }
 
     private fun migrateTo1(realm: DynamicRealm) {
@@ -344,23 +343,20 @@ internal object RealmSessionStoreMigration : RealmMigration {
 
     private fun migrateTo18(realm: DynamicRealm) {
         Timber.d("Step 17 -> 18")
-        realm.schema.create("UserPresenceEntity")?.apply {
-            addField(UserPresenceEntityFields.USER_ID, String::class.java)
-            addPrimaryKey(UserPresenceEntityFields.USER_ID)
-            setRequired(UserPresenceEntityFields.USER_ID, true)
-            addField(UserPresenceEntityFields.PRESENCE_STR, String::class.java)
-            addField(UserPresenceEntityFields.LAST_ACTIVE_AGO, Long::class.java)
-            setNullable(UserPresenceEntityFields.LAST_ACTIVE_AGO, true)
-            addField(UserPresenceEntityFields.STATUS_MESSAGE, String::class.java)
-            addField(UserPresenceEntityFields.IS_CURRENTLY_ACTIVE, Boolean::class.java)
-            setNullable(UserPresenceEntityFields.IS_CURRENTLY_ACTIVE, true)
-            addField(UserPresenceEntityFields.AVATAR_URL, String::class.java)
-        }
+        realm.schema.create("UserPresenceEntity")
+                ?.addField(UserPresenceEntityFields.USER_ID, String::class.java)
+                ?.addPrimaryKey(UserPresenceEntityFields.USER_ID)
+                ?.setRequired(UserPresenceEntityFields.USER_ID, true)
+                ?.addField(UserPresenceEntityFields.PRESENCE_STR, String::class.java)
+                ?.addField(UserPresenceEntityFields.LAST_ACTIVE_AGO, Long::class.java)
+                ?.setNullable(UserPresenceEntityFields.LAST_ACTIVE_AGO, true)
+                ?.addField(UserPresenceEntityFields.STATUS_MESSAGE, String::class.java)
+                ?.addField(UserPresenceEntityFields.IS_CURRENTLY_ACTIVE, Boolean::class.java)
+                ?.setNullable(UserPresenceEntityFields.IS_CURRENTLY_ACTIVE, true)
+                ?.addField(UserPresenceEntityFields.AVATAR_URL, String::class.java)
 
-        realm.schema.get("RoomSummaryEntity")?.apply {
-            val userPresenceEntity = realm.schema.get("UserPresenceEntity") ?: return@apply
-            addRealmObjectField(RoomSummaryEntityFields.PRESENCE.`$`,userPresenceEntity)
-        }
+        val userPresenceEntity = realm.schema.get("UserPresenceEntity") ?: return
+        realm.schema.get("RoomSummaryEntity")
+                ?.addRealmObjectField(RoomSummaryEntityFields.DIRECT_USER_PRESENCE.`$`, userPresenceEntity)
     }
-
 }

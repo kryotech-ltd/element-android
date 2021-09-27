@@ -13,13 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.matrix.android.sdk.api.session.room.model.presence
 
-import org.matrix.android.sdk.internal.session.presence.messages.PresenceEnum
+package org.matrix.android.sdk.internal.session.presence.model
 
-data class UserPresence (
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class GetPresenceResponse(
+        @Json(name = "presence")
+        val presence: PresenceEnum,
+        @Json(name = "last_active_ago")
         val lastActiveAgo: Long? = null,
-        val statusMessage: String? = null,
-        val isCurrentlyActive: Boolean? = null,
-        val presence: PresenceEnum = PresenceEnum.OFFLINE
-        )
+        @Json(name = "status_msg")
+        val message: String? = null,
+        @Json(name = "currently_active")
+        val isCurrentlyActive: Boolean? = null
+)

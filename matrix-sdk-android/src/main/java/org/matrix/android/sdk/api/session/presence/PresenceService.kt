@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 
 package org.matrix.android.sdk.api.session.presence
 
-import org.matrix.android.sdk.internal.session.presence.messages.GetPresenceResponse
-import org.matrix.android.sdk.internal.session.presence.messages.PresenceEnum
+import org.matrix.android.sdk.internal.session.presence.model.GetPresenceResponse
+import org.matrix.android.sdk.internal.session.presence.model.PresenceEnum
 
 /**
  * This interface defines methods for handling user presence information.
@@ -27,17 +27,15 @@ import org.matrix.android.sdk.internal.session.presence.messages.PresenceEnum
 interface PresenceService {
 
     /**
-     * Update the presence status for this user
-     * @param userId the userId to update the display name of
-     * @param presence the new user presence
-     * @param message the new user status message
+     * Update the presence status for the current user
+     * @param presence the new presence state
+     * @param message the status message to attach to this state
      */
-    suspend fun setPresence(userId: String, presence: PresenceEnum, message: String? = null)
+    suspend fun setPresence(presence: PresenceEnum, message: String? = null)
 
     /**
-     * Returns the presence status for this user
-     * @param userId the userId to update the avatar of
+     * Fetch the given user's presence state.
+     * @param userId the userId whose presence state to get.
      */
-    suspend fun getPresence(userId: String): GetPresenceResponse
-
+    suspend fun fetchPresence(userId: String): GetPresenceResponse
 }

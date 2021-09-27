@@ -74,7 +74,5 @@ internal fun RoomSummaryEntity.Companion.updateDirectUserPresence(realm: Realm, 
             .equalTo(RoomSummaryEntityFields.IS_DIRECT, true)
             .equalTo(RoomSummaryEntityFields.DIRECT_USER_ID, directUserId)
             .findFirst()
-            ?.apply {
-                presence = userPresenceEntity
-            }
+            ?.directUserPresence = userPresenceEntity
 }

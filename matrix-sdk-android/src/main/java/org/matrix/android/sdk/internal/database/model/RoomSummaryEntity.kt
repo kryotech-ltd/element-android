@@ -205,7 +205,7 @@ internal open class RoomSummaryEntity(
             if (value != field) field = value
         }
 
-    var presence: UserPresenceEntity? = null
+    var directUserPresence: UserPresenceEntity? = null
         set(value) {
             if (value != field) field = value
         }

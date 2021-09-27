@@ -88,12 +88,12 @@
 
     <ImageView
         android:id="@+id/roomAvatarPresenceImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:background="@drawable/background_circle"
         android:contentDescription="@string/a11y_public_room"
         android:padding="2dp"
-        android:src="@drawable/ic_presence_offline"
+        tools:src="@drawable/ic_presence_offline"
         android:visibility="gone"
         app:layout_constraintCircle="@id/roomAvatarContainer"
         app:layout_constraintCircleAngle="135"

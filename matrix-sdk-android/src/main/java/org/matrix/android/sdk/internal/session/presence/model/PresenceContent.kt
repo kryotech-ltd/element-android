@@ -1,11 +1,11 @@
 /*
- * Copyright 2020 The Matrix.org Foundation C.I.C.
+ * Copyright 2021 The Matrix.org Foundation C.I.C.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.matrix.android.sdk.internal.session.presence.messages
+package org.matrix.android.sdk.internal.session.presence.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+/**
+ * Class representing the EventType.STATE_ROOM_MEMBER state event content
+ */
 @JsonClass(generateAdapter = true)
- data class GetPresenceResponse(
-        @Json(name = "presence")
-        val presence: PresenceEnum,
-        @Json(name = "last_active_ago")
-        val lastActiveAgo: Long? = null,
-        @Json(name = "status_msg")
-        val message: String? = null,
-        @Json(name = "currently_active")
-        val isCurrentlyActive: Boolean? = null
+data class PresenceContent(
+        @Json(name = "presence") val presence: PresenceEnum,
+        @Json(name = "last_active_ago") val lastActiveAgo: Long? = null,
+        @Json(name = "status_msg") val statusMessage: String? = null,
+        @Json(name = "currently_active") val isCurrentlyActive: Boolean = false,
+        @Json(name = "avatar_url") val avatarUrl: String? = null
 )
