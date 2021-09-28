@@ -39,4 +39,3 @@ internal open class UserPresenceEntity(@PrimaryKey var userId: String = "",
 
     companion object
 }
-

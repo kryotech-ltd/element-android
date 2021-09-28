@@ -40,5 +40,4 @@ internal interface PresenceAPI {
      */
     @GET(NetworkConstants.URI_API_PREFIX_PATH_R0 + "presence/{userId}/status")
     suspend fun getPresence(@Path("userId") userId: String): GetPresenceResponse
-
 }

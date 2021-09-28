@@ -28,7 +28,6 @@ import javax.inject.Inject
 internal class PresenceSyncHandler @Inject constructor() {
 
     fun handle(realm: Realm, presenceSyncResponse: PresenceSyncResponse?) {
-
         presenceSyncResponse?.events?.filter { event ->
             event.type == EventType.PRESENCE
         }?.forEach { event ->
@@ -45,7 +44,6 @@ internal class PresenceSyncHandler @Inject constructor() {
             }
 
             storePresenceToDB(realm, userPresenceEntity)
-
         }
     }
 

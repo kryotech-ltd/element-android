@@ -49,7 +49,13 @@ internal class RoomSummaryMapper @Inject constructor(private val timelineEventMa
                 joinRules = roomSummaryEntity.joinRules,
                 isDirect = roomSummaryEntity.isDirect,
                 directUserId = roomSummaryEntity.directUserId,
-                directUserPresence = roomSummaryEntity.directUserPresence?.let { UserPresence(it.lastActiveAgo, it.statusMessage, it.isCurrentlyActive, it.presence) },
+                directUserPresence = roomSummaryEntity.directUserPresence?.let { presenceEntity ->
+                    UserPresence(
+                            presenceEntity.lastActiveAgo,
+                            presenceEntity.statusMessage,
+                            presenceEntity.isCurrentlyActive,
+                            presenceEntity.presence)
+                },
                 latestPreviewableEvent = latestEvent,
                 joinedMembersCount = roomSummaryEntity.joinedMembersCount,
                 invitedMembersCount = roomSummaryEntity.invitedMembersCount,
