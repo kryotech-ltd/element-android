@@ -43,7 +43,7 @@
         android:layout_height="12dp"
         android:background="@drawable/background_circle"
         android:importantForAccessibility="no"
-        android:padding="1dp"
+        android:padding="2dp"
         android:visibility="gone"
         app:layout_constraintCircle="@+id/matrixItemAvatar"
         app:layout_constraintCircleAngle="135"
@@ -57,7 +57,7 @@
         style="@style/Widget.Vector.TextView.Subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:maxLines="1"
@@ -68,7 +68,7 @@
         app:layout_constraintStart_toEndOf="@+id/matrixItemAvatarDecoration"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginEnd="80dp"
-        app:layout_goneMarginStart="8dp"
+        app:layout_goneMarginStart="7dp"
         tools:text="@sample/users.json/data/displayName" />
 
     <TextView
@@ -76,7 +76,7 @@
         style="@style/Widget.Vector.TextView.Body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="7dp"
         android:layout_marginEnd="8dp"
         android:ellipsize="end"
         android:maxLines="1"
