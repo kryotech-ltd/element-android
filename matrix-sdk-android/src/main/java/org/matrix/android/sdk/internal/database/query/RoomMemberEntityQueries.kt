@@ -42,4 +42,3 @@ internal fun RoomMemberSummaryEntity.Companion.updateUserPresence(realm: Realm, 
                 it.userPresence = userPresenceEntity
             }
 }
-

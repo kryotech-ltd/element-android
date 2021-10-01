@@ -36,7 +36,6 @@ abstract class ProfileMatrixItemWithPresence : BaseProfileMatrixItem<ProfileMatr
         holder.powerLabel.setTextOrHide(powerLevelLabel)
         holder.presenceImageView.render(userPresence = userPresence)
         holder.editableView.isVisible = false
-
     }
 
     class Holder : ProfileMatrixItem.Holder() {

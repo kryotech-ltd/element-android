@@ -130,7 +130,6 @@ class RoomMemberListController @Inject constructor(
     ) {
         val powerLabel = stringProvider.getString(powerLevelCategory.titleRes)
 
-
         profileMatrixItemWithPresence {
             id(roomMember.userId)
             matrixItem(roomMember.toMatrixItem())
