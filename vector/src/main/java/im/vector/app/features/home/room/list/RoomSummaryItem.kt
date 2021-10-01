@@ -32,6 +32,7 @@ import im.vector.app.core.epoxy.VectorEpoxyHolder
 import im.vector.app.core.epoxy.VectorEpoxyModel
 import im.vector.app.core.epoxy.onClick
 import im.vector.app.core.extensions.setTextOrHide
+import im.vector.app.core.ui.views.PresenceStateImageView
 import im.vector.app.core.ui.views.ShieldImageView
 import im.vector.app.features.home.AvatarRenderer
 import im.vector.app.features.themes.ThemeUtils
@@ -86,7 +87,7 @@ abstract class RoomSummaryItem : VectorEpoxyModel<RoomSummaryItem.Holder>() {
         renderSelection(holder, showSelected)
         holder.typingView.setTextOrHide(typingMessage)
         holder.lastEventView.isInvisible = holder.typingView.isVisible
-        handlePresence(holder)
+        holder.roomAvatarPresenceImageView.render(showPresence, userPresence)
     }
 
     override fun unbind(holder: Holder) {
@@ -95,20 +96,6 @@ abstract class RoomSummaryItem : VectorEpoxyModel<RoomSummaryItem.Holder>() {
         avatarRenderer.clear(holder.avatarImageView)
         super.unbind(holder)
     }
-
-    private fun handlePresence(holder: Holder) =
-            holder.roomAvatarPresenceImageView.apply {
-                if (showPresence) {
-                    isVisible = true
-                    if (userPresence?.presence == PresenceEnum.ONLINE) {
-                        setImageResource(R.drawable.ic_presence_online)
-                    } else {
-                        setImageResource(R.drawable.ic_presence_offline)
-                    }
-                } else {
-                    isVisible = false
-                }
-            }
 
     private fun renderSelection(holder: Holder, isSelected: Boolean) {
         if (isSelected) {
@@ -135,7 +122,7 @@ abstract class RoomSummaryItem : VectorEpoxyModel<RoomSummaryItem.Holder>() {
         val roomAvatarDecorationImageView by bind<ShieldImageView>(R.id.roomAvatarDecorationImageView)
         val roomAvatarPublicDecorationImageView by bind<ImageView>(R.id.roomAvatarPublicDecorationImageView)
         val roomAvatarFailSendingImageView by bind<ImageView>(R.id.roomAvatarFailSendingImageView)
-        val roomAvatarPresenceImageView by bind<ImageView>(R.id.roomAvatarPresenceImageView)
+        val roomAvatarPresenceImageView by bind<PresenceStateImageView>(R.id.roomAvatarPresenceImageView)
         val rootView by bind<ViewGroup>(R.id.itemRoomLayout)
     }
 }

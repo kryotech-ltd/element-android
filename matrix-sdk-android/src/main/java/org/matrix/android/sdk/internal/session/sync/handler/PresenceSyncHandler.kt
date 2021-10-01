@@ -19,9 +19,11 @@ package org.matrix.android.sdk.internal.session.sync.handler
 import io.realm.Realm
 import org.matrix.android.sdk.api.session.events.model.EventType
 import org.matrix.android.sdk.api.session.events.model.getPresenceContent
+import org.matrix.android.sdk.internal.database.model.RoomMemberSummaryEntity
 import org.matrix.android.sdk.internal.database.model.RoomSummaryEntity
 import org.matrix.android.sdk.internal.database.model.presence.UserPresenceEntity
 import org.matrix.android.sdk.internal.database.query.updateDirectUserPresence
+import org.matrix.android.sdk.internal.database.query.updateUserPresence
 import org.matrix.android.sdk.internal.session.sync.model.PresenceSyncResponse
 import javax.inject.Inject
 
@@ -48,10 +50,11 @@ internal class PresenceSyncHandler @Inject constructor() {
     }
 
     /**
-     * Store user presence to DB and update direct rooms accordingly
+     * Store user presence to DB and update Direct Rooms and Room Member Summaries accordingly
      */
     private fun storePresenceToDB(realm: Realm, userPresenceEntity: UserPresenceEntity) =
             realm.copyToRealmOrUpdate(userPresenceEntity)?.apply {
                 RoomSummaryEntity.updateDirectUserPresence(realm, userPresenceEntity.userId, this)
+                RoomMemberSummaryEntity.updateUserPresence(realm, userPresenceEntity.userId, this)
             }
 }

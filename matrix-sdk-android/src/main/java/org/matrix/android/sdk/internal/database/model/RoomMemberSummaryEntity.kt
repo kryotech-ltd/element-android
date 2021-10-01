@@ -20,6 +20,7 @@ import org.matrix.android.sdk.api.session.room.model.Membership
 import io.realm.RealmObject
 import io.realm.annotations.Index
 import io.realm.annotations.PrimaryKey
+import org.matrix.android.sdk.internal.database.model.presence.UserPresenceEntity
 
 internal open class RoomMemberSummaryEntity(@PrimaryKey var primaryKey: String = "",
                                             @Index var userId: String = "",
@@ -37,6 +38,11 @@ internal open class RoomMemberSummaryEntity(@PrimaryKey var primaryKey: String =
         }
         set(value) {
             membershipStr = value.name
+        }
+
+    var userPresence: UserPresenceEntity? = null
+        set(value) {
+            if (value != field) field = value
         }
 
     fun getBestName() = displayName?.takeIf { it.isNotBlank() } ?: userId

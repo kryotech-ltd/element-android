@@ -35,6 +35,7 @@ import org.matrix.android.sdk.internal.database.model.PendingThreePidEntityField
 import org.matrix.android.sdk.internal.database.model.PreviewUrlCacheEntityFields
 import org.matrix.android.sdk.internal.database.model.RoomAccountDataEntityFields
 import org.matrix.android.sdk.internal.database.model.RoomEntityFields
+import org.matrix.android.sdk.internal.database.model.RoomMemberSummaryEntityFields
 import org.matrix.android.sdk.internal.database.model.RoomMembersLoadStatusType
 import org.matrix.android.sdk.internal.database.model.RoomSummaryEntityFields
 import org.matrix.android.sdk.internal.database.model.RoomTagEntityFields
@@ -358,5 +359,8 @@ internal object RealmSessionStoreMigration : RealmMigration {
         val userPresenceEntity = realm.schema.get("UserPresenceEntity") ?: return
         realm.schema.get("RoomSummaryEntity")
                 ?.addRealmObjectField(RoomSummaryEntityFields.DIRECT_USER_PRESENCE.`$`, userPresenceEntity)
+
+        realm.schema.get("RoomMemberSummaryEntity")
+                ?.addRealmObjectField(RoomMemberSummaryEntityFields.USER_PRESENCE.`$`, userPresenceEntity)
     }
 }

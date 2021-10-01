@@ -20,6 +20,8 @@ import io.realm.Realm
 import org.matrix.android.sdk.api.session.events.model.Event
 import org.matrix.android.sdk.api.session.events.model.EventType
 import org.matrix.android.sdk.api.session.room.model.RoomMemberContent
+import org.matrix.android.sdk.internal.database.model.presence.UserPresenceEntity
+import org.matrix.android.sdk.internal.database.query.where
 import org.matrix.android.sdk.internal.di.UserId
 import org.matrix.android.sdk.internal.session.events.getFixedRoomMemberContent
 import org.matrix.android.sdk.internal.session.sync.SyncResponsePostTreatmentAggregator
@@ -47,7 +49,13 @@ internal class RoomMemberEventHandler @Inject constructor(
         if (roomMember == null) {
             return false
         }
-        val roomMemberEntity = RoomMemberEntityFactory.create(roomId, userId, roomMember)
+        val roomMemberEntity = RoomMemberEntityFactory.create(
+                roomId,
+                userId,
+                roomMember,
+                // To resolve an edge cases like, on initial sync RoomMemberEventHandler is called after PresenceSyncHandler,
+                // so the there is no record for the PresenceSyncHandler to update
+                getPresenceForUserId(realm, userId))
         realm.insertOrUpdate(roomMemberEntity)
         if (roomMember.membership.isActive()) {
             val userEntity = UserEntityFactory.create(userId, roomMember)
@@ -60,7 +68,15 @@ internal class RoomMemberEventHandler @Inject constructor(
         if (mxId != null && mxId != myUserId) {
             aggregator?.directChatsToCheck?.put(roomId, mxId)
         }
-
         return true
+    }
+
+    /**
+     * Get the presence state for a specific user in order to add it on the RoomMemberSummaryEntity
+     */
+    private fun getPresenceForUserId(realm: Realm, userId: String): UserPresenceEntity? {
+        return UserPresenceEntity
+                .where(realm, userId)
+                .findFirst()
     }
 }
