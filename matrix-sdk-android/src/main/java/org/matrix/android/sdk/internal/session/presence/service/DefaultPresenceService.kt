@@ -28,7 +28,7 @@ internal class DefaultPresenceService @Inject constructor(@UserId private val us
                                                           private val setPresenceTask: SetPresenceTask,
                                                           private val getPresenceTask: GetPresenceTask) : PresenceService {
 
-    override suspend fun setPresence(presence: PresenceEnum, message: String?) {
+    override suspend fun setMyPresence(presence: PresenceEnum, message: String?) {
         setPresenceTask.execute(SetPresenceTask.Params(userId, presence, message))
     }
 

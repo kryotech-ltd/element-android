@@ -31,7 +31,7 @@ interface PresenceService {
      * @param presence the new presence state
      * @param message the status message to attach to this state
      */
-    suspend fun setPresence(presence: PresenceEnum, message: String? = null)
+    suspend fun setMyPresence(presence: PresenceEnum, message: String? = null)
 
     /**
      * Fetch the given user's presence state.

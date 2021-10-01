@@ -23,6 +23,7 @@ import org.matrix.android.sdk.api.session.room.model.SpaceParentInfo
 import org.matrix.android.sdk.internal.session.presence.model.UserPresence
 import org.matrix.android.sdk.api.session.room.model.tag.RoomTag
 import org.matrix.android.sdk.internal.database.model.RoomSummaryEntity
+import org.matrix.android.sdk.internal.database.model.presence.toUserPresence
 import org.matrix.android.sdk.internal.session.typing.DefaultTypingUsersTracker
 import javax.inject.Inject
 
@@ -49,13 +50,7 @@ internal class RoomSummaryMapper @Inject constructor(private val timelineEventMa
                 joinRules = roomSummaryEntity.joinRules,
                 isDirect = roomSummaryEntity.isDirect,
                 directUserId = roomSummaryEntity.directUserId,
-                directUserPresence = roomSummaryEntity.directUserPresence?.let { presenceEntity ->
-                    UserPresence(
-                            presenceEntity.lastActiveAgo,
-                            presenceEntity.statusMessage,
-                            presenceEntity.isCurrentlyActive,
-                            presenceEntity.presence)
-                },
+                directUserPresence = roomSummaryEntity.directUserPresence?.toUserPresence(),
                 latestPreviewableEvent = latestEvent,
                 joinedMembersCount = roomSummaryEntity.joinedMembersCount,
                 invitedMembersCount = roomSummaryEntity.invitedMembersCount,

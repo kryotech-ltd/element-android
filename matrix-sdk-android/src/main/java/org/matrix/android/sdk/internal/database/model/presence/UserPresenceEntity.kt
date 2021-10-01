@@ -19,6 +19,7 @@ package org.matrix.android.sdk.internal.database.model.presence
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import org.matrix.android.sdk.internal.session.presence.model.PresenceEnum
+import org.matrix.android.sdk.internal.session.presence.model.UserPresence
 
 internal open class UserPresenceEntity(@PrimaryKey var userId: String = "",
                                        var lastActiveAgo: Long? = null,
@@ -39,3 +40,10 @@ internal open class UserPresenceEntity(@PrimaryKey var userId: String = "",
 
     companion object
 }
+
+internal fun UserPresenceEntity.toUserPresence() =
+        UserPresence(
+                lastActiveAgo,
+                statusMessage,
+                isCurrentlyActive,
+                presence)
